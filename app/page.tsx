@@ -1,10 +1,12 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Container, Title } from "./shared";
 
 export default function Home() {
-  return (
-    <div>
-     Home<Button variant={'outline'}>Привет</Button>
-    </div>
-  );
+	return (
+		<div>
+			<Container>
+			<Title text="Все пиццы" size="xl" className="font-extrabold"/>
+
+			</Container>
+		</div>
+	);
 }
