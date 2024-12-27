@@ -1,4 +1,10 @@
-export { Container } from "./Container";
-export {Header} from "./Header";
-export {Title} from "./Title"
-export {TopBar} from "./top-bar"
+export { Container } from './Container';
+export { Header } from './Header';
+export { Title } from './Title';
+export { TopBar } from './top-bar';
+export { Categories } from './Categories';
+export { SortPOpup } from './SortPopup';
+export { Filters } from './Filters';
+export { FilterCheckbox } from './FilterCheckbox';
+export { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
+export { RangeSlider } from './RangeSlider';

@@ -1,5 +1,4 @@
-import { cn } from "@/lib/utils";
-import { Container, Title, TopBar } from "./shared";
+import { Container, Filters, Title, TopBar } from "./shared";
 
 interface Props {
 	// categories: Category[];
@@ -8,10 +7,22 @@ interface Props {
  const Home: React.FC<Props>=({className}) =>{
 
 	return (
-		<div className={cn('sticky top-0 bg-white py-5 shadow-lg shadow-black/5 z-10', className)}>
+		<div className='mt-10'>
 			<Container>
-			<Title text="Все пиццы" size="xl" className="font-extrabold"/>
+			<Title text="Все пиццы" className="font-extrabold" size="lg"/>
+			</Container>
 			<TopBar/>
+
+			<Container>
+				<div className="flex gap-[60px]">
+					<div className="w-[250px]">
+						<Filters />
+					</div>
+					<div className='flex-1'>
+						Товары
+					</div>
+				</div>
+
 			</Container>
 		</div>
 	);
