@@ -36,8 +36,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 			<div className='flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar'>
 				{items.map((item) => (
 					<FilterCheckbox
-						onCheckedChange={() => onClickCheckbox?.(item.value)}
-						checked={selectedIds?.has(item.value)}
+						onCheckedChange={(itr) => console.log(itr)}
+						checked={false}
 						key={String(item.value)}
 						value={item.value}
 						text={item.text}
