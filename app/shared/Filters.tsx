@@ -18,7 +18,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				size="sm"
 				className="mb-5 font-bold pb-4 border-b border-b-neutral-100"
 			/>
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-4 mb-10">
 				<FilterCheckbox value="1" text="Можно собирать" />
 				<FilterCheckbox value="2" text="Новинки" />
 			</div>
@@ -45,59 +45,63 @@ export const Filters: React.FC<Props> = ({ className }) => {
 			</div>
 			<RangeSlider min={0} max={1000} step={10} />
 			<CheckboxFiltersGroup
-				title="инггридиент"
-				className="mt-5"
+				title="ингридиенты"
+				className="mt-10"
 				limit={6}
 				defaultItems={[
 					{
 						text: "Сырный соус",
-						value: "1",
-					},
-					{
-						text: "моцарелла",
-						value: "2",
-					},
-					{
-						text: "Чеснок",
 						value: "3",
 					},
 					{
-						text: "Солёные огурчики",
+						text: "моцарелла",
 						value: "4",
 					},
 					{
-						text: "Красный лук",
+						text: "Чеснок",
 						value: "5",
 					},
 					{
-						text: "Томаты",
+						text: "Солёные огурчики",
 						value: "6",
+					},
+					{
+						text: "Красный лук",
+						value: "7",
+					},
+					{
+						text: "Томаты",
+						value: "8",
 					},
 				]}
 				items={[
 					{
 						text: "Сырный соус",
-						value: "1",
-					},
-					{
-						text: "моцарелла",
-						value: "2",
-					},
-					{
-						text: "Чеснок",
 						value: "3",
 					},
 					{
-						text: "Солёные огурчики",
+						text: "моцарелла",
 						value: "4",
 					},
 					{
-						text: "Красный лук",
+						text: "Чеснок",
 						value: "5",
 					},
 					{
-						text: "Томаты",
+						text: "Солёные огурчики",
 						value: "6",
+					},
+					{
+						text: "Красный лук",
+						value: "7",
+					},
+					{
+						text: "Томаты",
+						value: "8",
+					},
+					{
+						text: "Томатыы",
+						value: "9",
 					},
 				]}
 			/>

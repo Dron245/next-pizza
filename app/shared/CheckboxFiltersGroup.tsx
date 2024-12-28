@@ -9,8 +9,9 @@ interface Props {
 	limit?: number;
 	searchInputPlaceholder?: string;
 	className?: string;
-	selectedIds?: Set<string>;
-	onClickCheckbox?: (value: string) => void;
+	// selectedIds?: Set<string>;
+	defaultValue?: string[]
+	onClickCheckbox?: (value: string[]) => void;
 	loading?: boolean;
 	name?: string;
 }
@@ -22,7 +23,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	limit = 6,
 	searchInputPlaceholder = 'Поиск ...',
 	className,
-	selectedIds,
+	// selectedIds,
 	onClickCheckbox,
 	loading,
 	name,

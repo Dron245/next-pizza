@@ -13,7 +13,7 @@ interface Props {
 			</Container>
 			<TopBar/>
 
-			<Container>
+			<Container className="mt-10">
 				<div className="flex gap-[60px]">
 					<div className="w-[250px]">
 						<Filters />
