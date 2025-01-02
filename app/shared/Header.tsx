@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import { Container } from './Container';
+import { Container } from '.';
 import { Button } from '@/components/ui';
 import { ArrowRight, ShoppingCart, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 					<User />
 					<b>Войти</b>
 				</Button>
-				<Button className={cn('group relative w-[105px]', className)}>
+				<Button className={cn('group relative  px-4', className)}>
 					<b>325 ₽</b>
 					<span className='h-full w-[1px] bg-white/30 mx-3 basis-1' />
 					<div className='flex items-center gap-1 transition duration-300 group-hover:opacity-0'>

@@ -1,6 +1,5 @@
-'use client'
 import React from "react";
-import { Title } from "./Title";
+import { Title } from ".";
 import { Input } from "@/components/ui";
 import { RangeSlider } from "./RangeSlider";
 import { CheckboxFiltersGroup } from "./CheckboxFiltersGroup";
@@ -11,6 +10,7 @@ interface Props {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+	
 	return (
 		<div className={className}>
 			<Title
@@ -29,7 +29,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 					type="number"
 					placeholder="0"
 					min={0}
-					max={1000}
+					max={1000} 
 					defaultValue={0}
 					// onChange={(e) => set('priceFrom', e.target.value)}
 					// value={String(filters.priceFrom || 0)}
@@ -105,6 +105,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 					},
 				]}
 			/>
+
 		</div>
 	);
 };

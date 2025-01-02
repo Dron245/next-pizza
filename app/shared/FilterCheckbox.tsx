@@ -30,7 +30,7 @@ export const FilterCheckbox: React.FC<FilterChecboxProps> = ({
       <label
         htmlFor={`checkbox-${name}-${String(value)}`}
         className="leading-none cursor-pointer flex-1">
-        {text}
+			{text}
       </label>
       {endAdornment}
     </div>
