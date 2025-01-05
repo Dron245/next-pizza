@@ -1,5 +1,5 @@
 'use client';
-import React, { act, use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Title, ProductCard } from ".";
 import { cn } from "@/lib/utils";
 import { useIntersection } from 'react-use';
@@ -33,7 +33,7 @@ export const ProductGroup: React.FC<Props> = ({
 		<div ref={intersectionRef} className={cn("[&:not(:last-child)]:mb-10", className)} id={title}>
 			<Title text={title} size='lg' className="font-extrabold mb-5" />
 			<div className={cn("grid grid-cols-3 gap-[50px]", className)}>
-				{products.map((product, i) => (
+				{products.map((product) => (
 					<ProductCard
 						key={product.id}
 						id={product.id}
