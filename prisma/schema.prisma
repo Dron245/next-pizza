@@ -144,7 +144,6 @@ model VerificationCode {
 
   userId Int  @unique
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   code String
 
   expiresAt DateTime @default(now())
