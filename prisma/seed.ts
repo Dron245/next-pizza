@@ -113,6 +113,7 @@ const ingredients = [
   },
 ].map((obj, index) => ({ id: index + 1, ...obj }));
 
+
 async function up() {
   await prisma.user.createMany({
     data: [
@@ -152,18 +153,7 @@ async function up() {
       },
     ],
   });
-  await prisma.verificationCode.createMany({
-	 data: [
-		{
-			userId: 1,
-			code: '123456',
-		},
-		{
-			userId: 2,
-			code: '123456',
-		},
-	 ],
-  })
+  
   await prisma.product.createMany({
     data: [
       {
@@ -372,6 +362,18 @@ async function up() {
       userId: 1,
       quantity: 1,
       pizzaSize: 20,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      },
+    },
+  });
+  await prisma.cartItem.create({
+    data: {
+      productItemId: 3,
+      cartId: 1,
+      userId: 1,
+      quantity: 4,
+      pizzaSize: 30,
       ingredients: {
         connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
       },
