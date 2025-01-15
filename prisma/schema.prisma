@@ -11,155 +11,178 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  fullName String
-  email    String @unique
-  password String
+   id       Int    @id @default(autoincrement())
+   fullName String
+   email    String @unique
+   password String
 
-  role             UserRole          @default(USER)
-  orders           Order[]
-  cartItems        CartItem[]
-  cart             Cart?
-  verificationCode VerificationCode?
+   role             UserRole          @default(USER)
+   orders           Order[]
+   cartItems        CartItem[]
+   cart             Cart?
+   verificationCode VerificationCode?
 
-  provider   String?
-  providerId String?
+   provider   String?
+   providerId String?
 
-  verified  DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+   verified  DateTime?
+   createdAt DateTime  @default(now())
+   updatedAt DateTime  @updatedAt
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String
-  products Product[]
+   id       Int       @id @default(autoincrement())
+   name     String
+   products Product[]
 }
 
 model Product {
-  id       Int    @id @default(autoincrement())
-  name     String
-  imageUrl String
+   id       Int    @id @default(autoincrement())
+   name     String
+   imageUrl String
 
-  items       ProductItem[]
-  ingredients Ingredient[]
+   items       ProductItem[]
+   ingredients Ingredient[]
 
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
+   categoryId Int
+   category   Category @relation(fields: [categoryId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 }
 
 model ProductItem {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  price     Int
-  size      Int?
-  pizzaType Int?
+   price     Int
+   size      Int?
+   pizzaType Int?
+   cartItems CartItem[]
 
-  cartItems CartItem[]
+   productId Int
+   product   Product @relation(fields: [productId], references: [id])
 
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 }
 
 model Ingredient {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  name     String
-  price    Int
-  imageUrl String
+   name     String
+   price    Int
+   imageUrl String
 
-  cartItems CartItem[]
-  products  Product[]
+   cartItems CartItem[]
+   products  Product[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 }
 
 model Cart {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  userId Int?  @unique
-  user   User? @relation(fields: [userId], references: [id])
+   userId Int?  @unique
+   user   User? @relation(fields: [userId], references: [id])
 
-  tokenId String?
+   tokenId String?
 
-  totalAmount Int @default(0)
+   totalAmount Int @default(0)
 
-  items CartItem[]
+   items CartItem[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 }
 
 model CartItem {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  productItemId Int
-  productItem   ProductItem @relation(fields: [productItemId], references: [id])
+   productItemId Int
+   productItem   ProductItem @relation(fields: [productItemId], references: [id])
 
-  cartId Int
-  cart   Cart @relation(fields: [cartId], references: [id])
+   cartId Int
+   cart   Cart @relation(fields: [cartId], references: [id])
 
-  ingredients Ingredient[]
-  quantity    Int
-  pizzaSize   Int?
-  type        Int?
+   ingredients Ingredient[]
+   quantity    Int
+   pizzaSize   Int?
+   type        Int?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+   User      User?    @relation(fields: [userId], references: [id])
+   userId    Int?
 }
 
 model Order {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+   userId Int
+   user   User @relation(fields: [userId], references: [id])
 
-  items Json?
+   items Json?
 
-  status      OrderStatus @default(PENDING)
-  totalAmount Int
-  paymentId   String?
+   status      OrderStatus @default(PENDING)
+   totalAmount Int
+   paymentId   String?
+   fullName String
+   address  String
+   email    String
+   phone    String
+   comment  String?
 
-  fullName String
-  address  String
-  email    String
-  phone    String
-  comment  String?
+	deliveryIntervalId Int?
+	deliveryInterval  DeliveryInterval? @relation(fields: [deliveryIntervalId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 }
 
 model VerificationCode {
-  id Int @id @default(autoincrement())
+   id Int @id @default(autoincrement())
 
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  code String
+   userId Int    @unique
+   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+   code   String
 
-  expiresAt DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   expiresAt DateTime @default(now())
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 
-  @@unique([userId, code])
+   @@unique([userId, code])
+}
+
+model ShippingMethod {
+  id         Int       @id @default(autoincrement())
+  name       String
+  price      Float
+  estimatedDelivery String?
+  deliveryIntervals DeliveryInterval[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model DeliveryInterval {
+  id         Int       @id @default(autoincrement())
+  startTime  DateTime  // Начало интервала
+  endTime    DateTime  // Конец интервала
+  isAvailable Boolean  @default(true) // Доступен ли интервал
+  shippingMethodId Int
+  shippingMethod ShippingMethod @relation(fields: [shippingMethodId], references: [id])
+  orders     Order[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 enum OrderStatus {
-  PENDING
-  SUCCEEDED
-  CANCELLED
+   PENDING
+   SUCCEEDED
+   CANCELLED
 }
 
 enum UserRole {
-  USER
-  ADMIN
+   USER
+   ADMIN
 }
