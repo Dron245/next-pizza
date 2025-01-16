@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
-import { Container } from '.';
+import { Container, SearchInput } from '.';
 import { Button } from '@/components/ui';
 import { ArrowRight, ShoppingCart, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 interface Props {
 	className?: string;
@@ -12,13 +13,15 @@ interface Props {
 export const Header: React.FC<Props> = ({ className }) => {
 	return (
 		<Container className='flex items-center justify-between py-8'>
-			<div className='flex items-center gap-4'>
+			<Link href='/' className='flex items-center gap-4'>
 				<Image src='/logo.png' alt='Лого' width={35} height={35} />
 				<div>
 					<h1 className='text-2xl uppercase font-black'>Next Pizza</h1>
 					<p className='text-sm text-gray-400 leading-3'>вкусней уже некуда</p>
 				</div>
-			</div>
+			</Link>
+
+			<SearchInput className='flex-1'/>
 			<div className='flex items-center gap-3'>
 				<Button className='gap-1 items-center' variant={'outline'}>
 					<User />
