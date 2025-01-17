@@ -1,32 +1,73 @@
-"use client";
-
-import React, { useState } from "react";
-import { cn } from "@/lib/utils";
-import { Search } from "lucide-react";
+'use client';
+import React, { useState } from 'react';
+import { cn } from '@/lib/utils';
+import { Search } from 'lucide-react';
+import { useClickAway, useDebounce } from 'react-use';
+import { Product } from '@prisma/client';
+import { Api } from '@/services/api-client';
+import Link from 'next/link';
 interface Props {
 	className?: string;
 }
 export const SearchInput: React.FC<Props> = ({ className }) => {
 	const [focus, setFocus] = useState(false);
+	const [searchvalue, setSearchValue] = useState('');
+	const [products, setProducts] = useState<Product[]>([]);
+	const menu = React.useRef(null);
+	console.log(products);
+
+	useDebounce(
+		async () => {
+			const products = await Api.products.search(searchvalue);
+			setProducts(products);
+		},
+		150,
+		[searchvalue]
+	);
+
+	useClickAway(menu, () => {
+		setFocus(false);
+	});
+
+	function onClick() {
+		setSearchValue('');
+		// setProducts([]);
+		setFocus(false);
+	}
 	return (
-		<div className={cn("relative mx-10 z-40", className)}>
-			{focus && <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30"></div>}
-			<div className="relative z-40 group">
-				<Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+		<>
+			{focus && (
+				<div className='fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30'></div>
+			)}
+			<div ref={menu} className={cn('relative z-40 group w-full', className)}>
+				<Search className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
 				<input
-					type="text"
+					type='text'
 					onFocus={() => setFocus(true)}
-					className=" text-gray-300 bg-gray-100  text-sm rounded-sm hover:bg-gray-200 block w-full pl-10 p-2.5"
-					placeholder="Поиск пиццы..."
+					className='  bg-gray-100  text-sm rounded-sm focus:outline-none block w-full pl-10 p-2.5'
+					placeholder='Поиск пиццы...'
+					value={searchvalue}
+					onChange={(e) => setSearchValue(e.target.value)}
 				/>
+				{ products && products.length>0 && <div
+					className={cn(
+						'absolute w-full top-14 border-gray-200 shadow-md rounded-sm p-2 opacity-0 translate-y-4 transition-all invisible duration-300 ease-in-out ',
+						focus && 'bg-white visible opacity-100  z-40 top-12'
+					)}
+				>
+					{products.map((product) => (
+						<Link href={`/products/${product.id}`} key={product.id}>
+							<div
+								onClick={onClick}
+								className='flex bg-white items-center gap-2 mb-2 hover:bg-primary/10'
+							>
+								<img src={product.imageUrl} alt={product.name} className='w-8 h-8' />
+								{product.name}
+							</div>
+						</Link>
+					))}
+				</div>}
 			</div>
-			<div
-				className={cn(
-					"absolute left-0  mt-4 w-full top-2 border-gray-200 shadow-lg rounded-sm p-4 opacity-0 translate-y-4 transition-all duration-300 ease-in-out ",
-					focus && "bg-white visible opacity-100  z-40 top-0"
-				)}>
-				123
-			</div>
-		</div>
+		</>
 	);
 };

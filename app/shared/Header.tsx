@@ -21,7 +21,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 				</div>
 			</Link>
 
-			<SearchInput className='flex-1'/>
+			<SearchInput className='mx-10 flex-1'/>
 			<div className='flex items-center gap-3'>
 				<Button className='gap-1 items-center' variant={'outline'}>
 					<User />
