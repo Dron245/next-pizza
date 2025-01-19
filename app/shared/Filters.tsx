@@ -47,7 +47,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 			<CheckboxFiltersGroup
 				title="ингридиенты"
 				className="mt-10"
-				limit={6}
+				// limit={6}
 				defaultItems={[
 					{
 						text: "Сырный соус",

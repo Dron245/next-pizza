@@ -33,7 +33,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	const [searchValue, setSearchValue] = React.useState("");
 	const list = showAll
 		? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-		: defaultItems.slice(0, 5);
+		: defaultItems.slice(0, limit);
 	return (
 		<div className={className}>
 			<p className="font-bold mb-3">{title}</p>
@@ -50,7 +50,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 				{list.map((item) => (
 					<FilterCheckbox
 						onCheckedChange={(itr) => console.log(itr)}
-						checked={false}
+						// checked={false}
 						key={String(item.value)}
 						value={item.value}
 						text={item.text}
