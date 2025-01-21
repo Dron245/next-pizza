@@ -14,12 +14,16 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 	const [searchvalue, setSearchValue] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
 	const menu = React.useRef(null);
-	console.log(products);
+	// console.log(products);
 
 	useDebounce(
 		async () => {
-			const products = await Api.products.search(searchvalue);
-			setProducts(products);
+			try {
+				const products = await Api.products.search(searchvalue);
+				setProducts(products);
+			} catch (error) {
+				console.log(error);
+			}
 		},
 		150,
 		[searchvalue]
@@ -49,24 +53,26 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 					value={searchvalue}
 					onChange={(e) => setSearchValue(e.target.value)}
 				/>
-				{ products && products.length>0 && <div
-					className={cn(
-						'absolute w-full top-14 border-gray-200 shadow-md rounded-sm p-2 opacity-0 translate-y-4 transition-all invisible duration-300 ease-in-out ',
-						focus && 'bg-white visible opacity-100  top-12'
-					)}
-				>
-					{products.map((product) => (
-						<Link href={`/products/${product.id}`} key={product.id}>
-							<div
-								onClick={onClick}
-								className='flex bg-white items-center gap-2 mb-2 hover:bg-primary/10'
-							>
-								<img src={product.imageUrl} alt={product.name} className='w-8 h-8' />
-								{product.name}
-							</div>
-						</Link>
-					))}
-				</div>}
+				{products && products.length > 0 && (
+					<div
+						className={cn(
+							'absolute w-full top-14 border-gray-200 shadow-md rounded-sm p-2 opacity-0 translate-y-4 transition-all invisible duration-300 ease-in-out ',
+							focus && 'bg-white visible opacity-100  z-40 top-12'
+						)}
+					>
+						{products.map((product) => (
+							<Link href={`/products/${product.id}`} key={product.id}>
+								<div
+									onClick={onClick}
+									className='flex bg-white items-center gap-2 mb-2 hover:bg-primary/10'
+								>
+									<img src={product.imageUrl} alt={product.name} className='w-8 h-8' />
+									{product.name}
+								</div>
+							</Link>
+						))}
+					</div>
+				)}
 			</div>
 		</>
 	);
