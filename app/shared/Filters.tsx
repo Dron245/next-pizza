@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import { Title } from '.';
 import { Input } from '@/components/ui';
@@ -11,9 +11,21 @@ interface Props {
 	className?: string;
 }
 
+interface RangeProps {
+	priceFrom: number;
+	priceTo: number;
+}
 export const Filters: React.FC<Props> = ({ className }) => {
 	const { ingredients, loading, selected, onAddId } = filtersHook();
-
+	const [price, setPrice] = React.useState<RangeProps>({
+		priceFrom: 200,
+		priceTo: 700,
+	});
+	const updatePrice = (name: keyof RangeProps, value: number) => (
+		setPrice({
+			...price,
+			[name]: value
+	}))
 	return (
 		<div className={className}>
 			<Title
@@ -33,20 +45,26 @@ export const Filters: React.FC<Props> = ({ className }) => {
 					placeholder='0'
 					min={0}
 					max={1000}
-					defaultValue={0}
-					// onChange={(e) => set('priceFrom', e.target.value)}
-					// value={String(filters.priceFrom || 0)}
+					value={price.priceFrom}
+					// onChange={(e) => (console.log(e.target.value))}
+					onChange={(e) => updatePrice('priceFrom', Number(e.target.value))}
 				/>
 				<Input
 					type='number'
-					min={100}
-					max={30000}
-					placeholder='30000'
-					// onChange={(e) => set('priceTo', e.target.value)}
-					// value={String(filters.priceTo || 0)}
+					min={0}
+					max={1000}
+					placeholder='700'
+					value={price.priceTo}
+					onChange={(e) => updatePrice('priceTo', Number(e.target.value))}
 				/>
 			</div>
-			<RangeSlider min={0} max={1000} step={10} />
+			<RangeSlider
+				min={0}
+				max={1000}
+				step={10}
+				value={[price.priceFrom, price.priceTo]}
+				onValueChange={([f,t])=>(setPrice({priceFrom: f, priceTo: t}))}
+			/>
 			<CheckboxFiltersGroup
 				title='ингридиенты'
 				className='mt-10'
@@ -56,14 +74,11 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				onClickCheckbox={onAddId}
 				name='ingredients'
 				loading={loading}
-				defaultItems={
-					ingredients.map((item) => (
-						{ text: item.name, value: String(item.id) }
-					))
-				}
-				items={ingredients.map((item) => (
-					{ text: item.name, value: String(item.id) }
-				))}
+				defaultItems={ingredients.map((item) => ({
+					text: item.name,
+					value: String(item.id),
+				}))}
+				items={ingredients.map((item) => ({ text: item.name, value: String(item.id) }))}
 			/>
 		</div>
 	);
