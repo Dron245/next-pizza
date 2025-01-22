@@ -17,15 +17,16 @@ interface RangeProps {
 }
 export const Filters: React.FC<Props> = ({ className }) => {
 	const { ingredients, loading, selected, onAddId } = filtersHook();
+	const items = ingredients.map((item) => ({ text: item.name, value: String(item.id) }));
 	const [price, setPrice] = React.useState<RangeProps>({
 		priceFrom: 200,
 		priceTo: 700,
 	});
-	const updatePrice = (name: keyof RangeProps, value: number) => (
+	const updatePrice = (name: keyof RangeProps, value: number) =>
 		setPrice({
 			...price,
-			[name]: value
-	}))
+			[name]: value,
+		});
 	return (
 		<div className={className}>
 			<Title
@@ -63,7 +64,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				max={1000}
 				step={10}
 				value={[price.priceFrom, price.priceTo]}
-				onValueChange={([f,t])=>(setPrice({priceFrom: f, priceTo: t}))}
+				onValueChange={([priceFrom, priceTo]) => setPrice({ priceFrom, priceTo })}
 			/>
 			<CheckboxFiltersGroup
 				title='ингридиенты'
@@ -74,11 +75,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				onClickCheckbox={onAddId}
 				name='ingredients'
 				loading={loading}
-				defaultItems={ingredients.map((item) => ({
-					text: item.name,
-					value: String(item.id),
-				}))}
-				items={ingredients.map((item) => ({ text: item.name, value: String(item.id) }))}
+				defaultItems={items.slice(0, 5)}
+				items={items}
 			/>
 		</div>
 	);
