@@ -1,28 +1,23 @@
-'use client';
-import { Api } from '@/services/api-client';
-import { Ingredient } from '@prisma/client';
-import React from 'react';
-import { useSet } from 'react-use';
+"use client";
+import { Api } from "@/services/api-client";
+import { search } from "@/services/products";
+import { Ingredient } from "@prisma/client";
+import { useSearchParams } from "next/navigation";
+import React from "react";
+import { useSet } from "react-use";
 interface FilterProps {
 	ingredients: Ingredient[];
-	loading:boolean;
-	onAddId: (id: string) => void;
-	selected: Set<string>
+	loading: boolean;
 }
-export function filtersHook():FilterProps {
+export function filtersHook(): FilterProps {
 	const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
 	const [loading, setLoading] = React.useState(true);
-	
-	const [ selected, {toggle}] = useSet(
-		new Set<string>()
-	);
+
 	React.useEffect(() => {
-		 async function fetchIngredients() {
+		async function fetchIngredients() {
 			try {
 				setLoading(true);
-				setIngredients(
-					await Api.ingredients.getIngredients()
-				);
+				setIngredients(await Api.ingredients.getIngredients());
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -36,7 +31,5 @@ export function filtersHook():FilterProps {
 	return {
 		ingredients,
 		loading,
-		onAddId:toggle,
-		selected
-	}
+	};
 }
