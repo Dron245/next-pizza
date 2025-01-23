@@ -6,7 +6,7 @@ type Item = FilterChecboxProps;
 interface Props {
 	title: string;
 	items: Item[];
-	defaultItems: Item[];
+	defaultItems?: Item[];
 	limit?: number;
 	searchInputPlaceholder?: string;
 	className?: string;
@@ -15,8 +15,9 @@ interface Props {
 	onClickCheckbox?: (id: string) => void;
 	loading?: boolean;
 	name?: string;
-	onAddId: (id: string) => void;
+	onAddId?: (id: string) => void;
 	selected?: Set<string>;
+	ingredients?: boolean;
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
@@ -31,12 +32,13 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	loading,
 	name,
 	selected,
+	ingredients
 }) => {
 	const [showAll, setShowAll] = React.useState(false);
 	const [searchValue, setSearchValue] = React.useState('');
 	const list = showAll
 		? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-		: defaultItems.slice(0, limit);
+		: (defaultItems || items).slice(0, limit) ;
 
 	if (loading) {
 		return (
@@ -76,9 +78,9 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 				))}
 			</div>
 			<div className={showAll ? 'border-t border-t-neutral-100 mt-4' : ''}>
-				<button onClick={() => setShowAll(!showAll)} className='text-primary mt-3'>
+				{ingredients && <button onClick={() => setShowAll(!showAll)} className='text-primary mt-3'>
 					{showAll ? 'Скрыть' : '+ Показать все'}
-				</button>
+				</button>}
 			</div>
 		</div>
 	);
