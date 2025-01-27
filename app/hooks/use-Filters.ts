@@ -27,7 +27,7 @@ interface ReturnProps extends Filters {
 } 
 export function useFilters():ReturnProps {
 	const searchParams = useSearchParams();
-	console.log(searchParams, 777);
+	// console.log(searchParams, 777);
 	
 	const [prices, setPrices] = React.useState<PriceProps>({
 		priceFrom:  Number(searchParams.get("priceFrom")) || undefined ,

@@ -12,7 +12,7 @@ export const useQuery = (filters: Filters) => {
 			...filters.prices,
 			ingredients: Array.from(filters.selectedIngredients),
 		};
-		console.log(params,222);
+		// console.log(params,222);
 		
 		const querry = qs.stringify(params, { arrayFormat: 'comma' });
 		router.push(`?${querry}`, {
