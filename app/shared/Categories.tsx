@@ -2,26 +2,21 @@
 import { cn } from "@/lib/utils";
 import React, { act } from "react";
 import { useCategoryStore } from "../store";
-
+export type Category = {
+	id:number,
+	name:string
+}
 interface Props {
 	className?: string;
+	items: Category[]
 }
-const cats = [
-	{ id: 1, name: "Пиццы" },
-	{ id: 2, name: "Комбо" },
-	{ id: 3, name: "Закуски" },
-	{ id: 4, name: "Коктели" },
-	{ id: 5, name: "Кофе" },
-	{ id: 6, name: "Напитки" },
-	{ id: 7, name: "Десерты" },
-	{ id: 8, name: "Ещё " },
-];
 
-export const Categories: React.FC<Props> = ({ className }) => {
+
+export const Categories: React.FC<Props> = ({items, className }) => {
 	const activeId = useCategoryStore((state) => state.activeId);
 	return (
 		<div className={cn("inline-flex gap-1 bg-gray-50 p-1 rounded-2xl", className)}>
-			{cats.map((cat, index) => (
+			{items.map((cat, index) => (
 				<a
 					key={index}
 					href={`/#${cat.name}`}

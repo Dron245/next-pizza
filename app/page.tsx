@@ -22,7 +22,7 @@ const Home: React.FC<Props> = async ({ className }) => {
 			<Container>
 				<Title text='Все пиццы' className='font-extrabold' size='lg' />
 			</Container>
-			<TopBar />
+			<TopBar categories={category.filter((category) => category.products.length > 0)} />
 
 			<Container className='mt-10'>
 				<div className='flex gap-[60px]'>
