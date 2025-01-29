@@ -44,6 +44,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 			<div className='flex gap-3 mb-5'>
 				<Input
 					type='number'
+					name='priceTo'
 					placeholder='200'
 					min={0}
 					max={1000}
@@ -52,6 +53,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				/>
 				<Input
 					type='number'
+					name='priceFrom'
 					min={0}
 					max={1000}
 					placeholder='700'

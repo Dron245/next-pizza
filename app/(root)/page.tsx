@@ -1,5 +1,5 @@
 import { prisma } from '@/prisma/prisma-client';
-import { Container, Filters, ProductGroup, Title, TopBar } from './shared';
+import { Container, Filters, ProductGroup, Title, TopBar } from '../shared';
 
 interface Props {
 	className?: string;
@@ -16,7 +16,7 @@ const Home: React.FC<Props> = async ({ className }) => {
 			},
 		},
 	});
-	
+
 	return (
 		<div className='mt-10'>
 			<Container>

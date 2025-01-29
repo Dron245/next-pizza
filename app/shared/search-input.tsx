@@ -46,6 +46,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 			<div ref={menu} className={cn('relative z-40 group w-full', className)}>
 				<Search className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
 				<input
+					name='search-pizza'
 					type='text'
 					onFocus={() => setFocus(true)}
 					className='  bg-gray-100  text-sm rounded-sm focus:outline-none block w-full pl-10 p-2.5'

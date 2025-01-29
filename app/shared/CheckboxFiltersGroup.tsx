@@ -57,6 +57,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 			{showAll && (
 				<div className="mb-5">
 					<Input
+						name='search'
 						onChange={(e) => setSearchValue(e.target.value)}
 						placeholder={searchInputPlaceholder}
 						className="bg-gray-50 border-none"
