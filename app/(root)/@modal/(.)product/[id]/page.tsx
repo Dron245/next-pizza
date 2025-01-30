@@ -1,18 +1,24 @@
-"use client";
 
-import { useRouter } from "next/navigation";
+import { ChooseProductModal, ProductForm, ProductModal } from "@/app/shared";
+import { Dialog } from "@/components/ui";
+import { DialogContent } from "@/components/ui/dialog";
+import { prisma } from "@/prisma/prisma-client";
+import { notFound } from "next/navigation";
 
-export default function ModalPage({ params }: { params: { id: string } }) {
-  const router = useRouter();
-
+export default async function Page({ params }: { params: { id: string } }) {
+  const product = await prisma.product.findFirst({
+	where: {
+		id: Number(params.id),
+	},
+	include: {
+		ingredients: true,
+		items: true,
+	}
+})
+	if (!product) {
+		return notFound();
+	 }
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2>Модальное окно #{params.id}</h2>
-        <button onClick={() => router.back()} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
-          ❌ Закрыть
-        </button>
-      </div>
-    </div>
+   <ProductModal product={product}/>
   );
 }
