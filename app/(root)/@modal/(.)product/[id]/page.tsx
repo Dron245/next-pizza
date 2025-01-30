@@ -1,7 +1,5 @@
 
-import { ChooseProductModal, ProductForm, ProductModal } from "@/app/shared";
-import { Dialog } from "@/components/ui";
-import { DialogContent } from "@/components/ui/dialog";
+import { ProductModal } from "@/app/shared";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
