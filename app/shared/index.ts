@@ -14,7 +14,7 @@ export { ProductGroup } from './product-group';
 export {ProductForm} from './product-form'
 export {PizzaImage} from './pizza-image'
 export {GroupVariants} from './group-variants'
-export {ChooseProductModal} from './choose-product-modal'
+// export {ChooseProductModal} from './choose-product-modal'
 export {ChooseProductForm} from './choose-product-form'
 export {ChoosePizzaForm} from './choose-pizza-form'
 export {ProductImage} from './product-image'

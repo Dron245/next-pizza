@@ -2,11 +2,13 @@ import { cn } from '@/lib/utils';
 import React from 'react';
 import { GroupVariants, PizzaImage, Title } from '.';
 import { Button } from '@/components/ui';
+import { Ingredient } from '@prisma/client';
 
 interface Props {
 className?: string;
 imageUrl: string;
-name: string
+name: string;
+ingredients: Ingredient[];
 }
 
 export const ChoosePizzaForm: React.FC<Props> = ({name, imageUrl, className }) => {
