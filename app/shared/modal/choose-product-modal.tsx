@@ -1,10 +1,10 @@
 "use client";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/app/shared/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { ProductWithRelations } from "@/@types/prisma";
 import { cn } from "@/lib/utils";
-import { ProductForm } from "..";
+import { ProductForm } from "../components/shared";
 
 interface Props {
 	className?: string;

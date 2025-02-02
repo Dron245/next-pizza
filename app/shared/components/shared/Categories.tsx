@@ -1,7 +1,7 @@
 'use client';
 import { cn } from "@/lib/utils";
 import React, { act } from "react";
-import { useCategoryStore } from "../store";
+import { useCategoryStore } from "../../store/category";
 export type Category = {
 	id:number,
 	name:string

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Title, ProductCard } from ".";
 import { cn } from "@/lib/utils";
 import { useIntersection } from 'react-use';
-import { useCategoryStore } from "../store";
+import { useCategoryStore } from "../../store/category";
 interface Props {
 	className?: string;
 	title: string;

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
 import { useClickAway, useDebounce } from 'react-use';
 import { Product } from '@prisma/client';
-import { Api } from '@/services/api-client';
+import { Api } from '@/app/shared/services/api-client';
 import Link from 'next/link';
 interface Props {
 	className?: string;

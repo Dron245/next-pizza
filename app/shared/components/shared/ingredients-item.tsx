@@ -11,7 +11,7 @@ interface Props {
 	name: string;
 	price: number;
 	active?: boolean;
-	onclickAdd?: () => void;
+	onclick?: () => void;
 }
 
 export const IngredientsItem: React.FC<Props> = ({
@@ -20,17 +20,17 @@ export const IngredientsItem: React.FC<Props> = ({
 	imageUrl,
 	price,
 	active,
-	onclickAdd,
+	onclick,
 }) => {
 	return (
 		<div
-			onClick={onclickAdd}
+			onClick={onclick}
 			className={cn(
-				"relative cursor-pointer p-1 w-32 flex flex-col items-center rounded-md text-sm shadow-md bg-white",
+				"relative cursor-pointer p-2 w-32 flex flex-col items-center rounded-md text-sm shadow-md bg-white",
 				{ "border border-primary rounded-sm": active }
 			)}>
-			<img className="w-16 h-16" src={imageUrl} alt={name} />
-			<p className="text-xs mb-1">{name}</p>
+			<img className="w-[110px] h-[110px]" src={imageUrl} alt={name} />
+			<p className="mt-2 text-center text-xs mb-1">{name}</p>
 			<p className="font-bold">{price} ₽</p>
 			{active && <CircleCheck className="absolute top-2 right-2 text-primary" />}
 		</div>

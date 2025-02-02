@@ -1,4 +1,4 @@
-import { Checkbox } from '@/components/ui';
+import { Checkbox } from '@/app/shared/components/ui';
 import React from 'react';
 
 export interface FilterChecboxProps {

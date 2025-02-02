@@ -1,5 +1,5 @@
 import { prisma } from '@/prisma/prisma-client';
-import { Container, Filters, ProductGroup, Title, TopBar } from '../shared';
+import { Container, Filters, ProductGroup, Title, TopBar } from '../shared/components/shared';
 
 interface Props {
 	className?: string;

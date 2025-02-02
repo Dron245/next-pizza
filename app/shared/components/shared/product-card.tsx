@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Title } from ".";
-import { Button } from "@/components/ui";
+import { Button } from "@/app/shared/components/ui";
 import { Plus } from "lucide-react";
 
 export interface product {

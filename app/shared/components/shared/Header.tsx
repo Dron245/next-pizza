@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { Container, SearchInput } from '.';
-import { Button } from '@/components/ui';
+import { Button } from '@/app/shared/components/ui';
 import { ArrowRight, ShoppingCart, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
