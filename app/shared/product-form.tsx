@@ -13,7 +13,7 @@ export const ProductForm: React.FC<Props> = ({ product, className }) => {
 	return (
 		<>
 			{isPizza ? (
-				<ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} />
+				<ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={product.ingredients} />
 			) : (
 				<ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
 			)}

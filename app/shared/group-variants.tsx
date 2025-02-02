@@ -11,6 +11,7 @@ interface Props {
 	className?: string;
 	onClick?: (value: Variant['value']) => void;
 	value?: Variant['value'];
+	// active?: boolean;
 }
 
 export const GroupVariants: React.FC<Props> = ({ items, onClick, value, className }) => {
@@ -32,6 +33,7 @@ export const GroupVariants: React.FC<Props> = ({ items, onClick, value, classNam
 							'text-gray-500 opacity-50 pointer-events-none': item.disabled,
 						}
 					)}
+					
 				>
 					{item.name}
 				</button>
