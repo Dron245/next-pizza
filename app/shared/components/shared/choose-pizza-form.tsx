@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { GroupVariants, IngredientsItem, PizzaImage, Title } from ".";
 import { Button } from "@/app/shared/components/ui";
-import { Ingredient } from "@prisma/client";
+import { Ingredient, ProductItem } from "@prisma/client";
 import {
 	pizzaEntriesSizes,
 	pizzaEntriesTypes,
@@ -17,6 +17,7 @@ interface Props {
 	imageUrl: string;
 	name: string;
 	ingredients: Ingredient[];
+	items: ProductItem[];
 	onclickAdd?: () => void;
 }
 
@@ -26,10 +27,10 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	className,
 	ingredients,
 }) => {
-	const totalPrice = 350;
 	const [pizzaSizeActive, setPizzaSizeActive] = React.useState<PizzaSizes>(30);
 	const [pizzaTypeActive, setPizzaTypeActive] = React.useState<PizzaTypes>(1);
 	const [selectedIngredients, { toggle: setActiveIngredients }] = useSet<number>();
+	const totalPrice = 350;
 	return (
 		<div className={cn(className, "flex flex-1")}>
 			<PizzaImage imageUrl={imageUrl} size={pizzaSizeActive} />

@@ -13,6 +13,15 @@ export default async function ProductPage({
 		},
 		include: {
 			ingredients: true,
+			// category: {
+			// 	include: {
+			// 		products: {
+			// 			include: {
+			// 				items: true,
+			// 			},
+			// 		},
+			// 	},
+			// },
 			items: true,
 		},
 	});

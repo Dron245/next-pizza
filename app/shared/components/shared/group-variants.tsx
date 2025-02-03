@@ -2,8 +2,8 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 type Variant = {
-	name: string;
 	value: string;
+	name: string;
 	disabled?: boolean;
 };
 interface Props {
@@ -33,7 +33,6 @@ export const GroupVariants: React.FC<Props> = ({ items, onClick, value, classNam
 							'text-gray-500 opacity-50 pointer-events-none': item.disabled,
 						}
 					)}
-					
 				>
 					{item.name}
 				</button>

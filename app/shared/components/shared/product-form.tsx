@@ -1,6 +1,6 @@
-import { ProductWithRelations } from "@/@types/prisma";
-import React from "react";
-import { ChoosePizzaForm, ChooseProductForm } from ".";
+import { ProductWithRelations } from '@/@types/prisma';
+import React from 'react';
+import { ChoosePizzaForm, ChooseProductForm } from '.';
 
 interface Props {
 	className?: string;
@@ -13,7 +13,12 @@ export const ProductForm: React.FC<Props> = ({ product, className }) => {
 	return (
 		<>
 			{isPizza ? (
-				<ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={product.ingredients} />
+				<ChoosePizzaForm
+					imageUrl={product.imageUrl}
+					name={product.name}
+					ingredients={product.ingredients}
+					items={product.items}
+				/>
 			) : (
 				<ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
 			)}

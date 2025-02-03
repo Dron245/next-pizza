@@ -5,8 +5,8 @@ const pizzaSizes = {
 };
 
 const pizzaTypes = {
-	1: "тонкое",
-	2: "традиционное",
+	1: "тонкая",
+	2: "традиционная",
 };
 
 export const pizzaEntriesSizes = Object.entries(pizzaSizes)
