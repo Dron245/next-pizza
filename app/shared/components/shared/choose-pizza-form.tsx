@@ -26,20 +26,60 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	imageUrl,
 	className,
 	ingredients,
+	items,
 }) => {
-	const [pizzaSizeActive, setPizzaSizeActive] = React.useState<PizzaSizes>(30);
+	const [pizzaSizeActive, setPizzaSizeActive] = React.useState<PizzaSizes>(20);
 	const [pizzaTypeActive, setPizzaTypeActive] = React.useState<PizzaTypes>(1);
 	const [selectedIngredients, { toggle: setActiveIngredients }] = useSet<number>();
-	const totalPrice = 350;
+
+	// выбор вариантов размеров пицц исходя из установленного пользователем типа пиццы
+	const availablePizzaSizes = items.filter((item) => item.pizzaType === pizzaTypeActive);
+
+	// варианты размеров пицц, дополненные полем disabled
+	const fullVariantsSize = pizzaEntriesSizes.map((item) => {
+		return {
+			name: item.name,
+			value: String(item.value),
+			disabled: !availablePizzaSizes.some(
+				(pizza) => Number(pizza.size) === Number(item.value)
+			),
+		};
+	});
+
+	React.useEffect(() => {
+		// есть вариант заданного размера и при этом не заблокированный
+		const isActiveVariant = fullVariantsSize.find(
+			(item) => item.value === String(pizzaSizeActive) && !item.disabled
+		);
+
+		// первый не заблокированный вариант
+		const availVariant = fullVariantsSize.find((item) => !item.disabled);
+		// console.log(!isActiveVariant );
+		if (!isActiveVariant && availVariant) {
+			console.log(1);
+
+			setPizzaSizeActive(Number(availVariant.value) as PizzaSizes);
+		}
+		console.log(items, availVariant);
+	}, [pizzaTypeActive]);
+	console.log(pizzaEntriesTypes)
+	const pizzaPrice =
+		items.find((item) => item.size === pizzaSizeActive && item.pizzaType === pizzaTypeActive)
+			?.price || 0;
+	const ingredientsPrice = ingredients
+		.filter((item) => selectedIngredients.has(item.id))
+		.reduce((acc, item) => acc + item.price, 0);
+	const totalPrice = pizzaPrice + ingredientsPrice;
 	return (
 		<div className={cn(className, "flex flex-1")}>
 			<PizzaImage imageUrl={imageUrl} size={pizzaSizeActive} />
 			<div className="w-[490px] bg-[#f7f6f5] p-7">
 				<Title text={name} size="md" className="font-extrabold mb-1" />
-				<p className="mt-2 mb-3"> flsdkf sldkfms ldkfm </p>
+				<p className="mt-2 mb-3"> {`${pizzaSizeActive} см ${pizzaEntriesTypes[pizzaTypeActive].name}`} </p>
+				
 				<GroupVariants
 					className="mb-3"
-					items={pizzaEntriesSizes}
+					items={fullVariantsSize}
 					value={String(pizzaSizeActive)}
 					onClick={(size) => setPizzaSizeActive(Number(size) as PizzaSizes)}
 				/>
