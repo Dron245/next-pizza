@@ -11,7 +11,8 @@ import {
 	mapPizzaTypes,
 	PizzaType,
 } from '../../constants/pizza';
-import { useSet } from 'react-use';
+import { usePizzaOptions } from '../../hooks/use-pizza-options';
+import { DetailsPizza } from '@/lib/details-pizza';
 
 interface Props {
 	className?: string;
@@ -21,7 +22,6 @@ interface Props {
 	items: ProductItem[];
 	onclickAdd?: () => void;
 }
-console.log(pizzaEntriesTypes);
 export const ChoosePizzaForm: React.FC<Props> = ({
 	name,
 	imageUrl,
@@ -29,72 +29,33 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 	ingredients,
 	items,
 }) => {
-	const [pizzaSize, setPizzaSize] = React.useState<PizzaSize>(20);
-	const [pizzaType, setPizzaType] = React.useState<PizzaType>(1);
-	const [selectedIngredients, { toggle: setActiveIngredients }] = useSet<number>();
+	const {
+		pizzaSize,
+		setPizzaSize,
+		pizzaType,
+		setPizzaType,
+		selectedIngredients,
+		availableSizes,
+		setActiveIngredients,
+	} = usePizzaOptions(items);
 
-	// отсортированный массив объектьов пицц исходя из установленного пользователем типа пиццы
-	const filteredPizzasByType = items.filter((item) => item.pizzaType === pizzaType);
-
-	// варианты размеров пицц, дополненные полем disabled
-	const availableSizes = pizzaEntriesSizes.map((item) => {
-		return {
-			name: item.name,
-			value: String(item.value),
-			disabled: !filteredPizzasByType.some(
-				(pizza) => Number(pizza.size) === Number(item.value)
-			),
-		};
-	});
+	const { totalPrice, textDetails } = DetailsPizza(
+		{pizzaSize,
+		pizzaType,
+		items,
+		ingredients,
+		selectedIngredients}
+	);
 	const handleClick = () => {
 		// onclickAdd();
-		console.log(
-			pizzaSize, pizzaType, selectedIngredients
-			);
-	}
-	const currentItemId = items.find(
-		(item) => item.pizzaType === pizzaType && item.size === pizzaSize
-	)?.id
-	React.useEffect(() => {
-		// есть вариант заданного размера и при этом не заблокированный
-		const isAvailableSize = availableSizes.find(
-			(item) => Number(item.value) === pizzaSize && !item.disabled
-		);
-
-		// первый не заблокированный вариант
-		const availableSize = availableSizes.find((item) => !item.disabled);
-		console.log('продукты:',items);
-		console.log("отсортированный массив объектов пицц по тесту: ",filteredPizzasByType,);
-		console.log("дополненный disabled массив вариантов: ",availableSizes,);
-		console.log("есть доступный вариант заданнного размера не аблокированный: ",isAvailableSize,);
-		console.log("первый не заблокированный вариант: ",availableSize);
-		if (!isAvailableSize && availableSize) {
-			setPizzaSize(Number(availableSize.value) as PizzaSize);
-		}
-		// console.log(items, availableSize);
-	}, [pizzaType]);
-	// console.log(pizzaEntriesTypes)
-
-	const pizzaPrice =
-		items.find(
-			(item) => item.size === pizzaSize && item.pizzaType === pizzaType
-		)?.price || 0;
-
-	const totalIngredientsPrice = ingredients
-		.filter((ingredient) => selectedIngredients.has(ingredient.id))
-		.reduce((acc, ingredient) => acc + ingredient.price, 0);
-
-	const totalPrice = pizzaPrice + totalIngredientsPrice;
+		console.log(pizzaSize, pizzaType, selectedIngredients);
+	};
 	return (
 		<div className={cn(className, 'flex flex-1')}>
 			<PizzaImage imageUrl={imageUrl} size={pizzaSize} />
 			<div className='w-[490px] bg-[#f7f6f5] p-7'>
 				<Title text={name} size='md' className='font-extrabold mb-1' />
-				<p className='mt-2 mb-3'>
-					{`${pizzaSize} см, тип теста: ${
-						mapPizzaTypes[pizzaType]
-					}`}
-				</p>
+				<p className='mt-2 mb-3'>{textDetails}</p>
 
 				<GroupVariants
 					className='mb-3'
