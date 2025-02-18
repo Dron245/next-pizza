@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductImage, Title } from '.';
+import { Title } from '.';
 import { Button } from '@/app/shared/components/ui';
 import { cn } from '@/lib/utils';
 
