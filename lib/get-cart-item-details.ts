@@ -1,17 +1,25 @@
-export const getCartItemDetails = (PizzaType: string, PizzaSize: string,
-	 ingredients: string[]) => {
+import {
+	PizzaSize,
+	PizzaType,
+	mapPizzaTypes,
+} from '@/app/shared/constants/pizza';
+import { Cart, Ingredient } from '@prisma/client';
+
+export const getCartItemDetails = (
+	PizzaType: PizzaType,
+	PizzaSize: PizzaSize,
+	ingredients: Array<{ name: string; price: number }>,
+): string => {
 	const details = [];
 
 	if (PizzaSize && PizzaType) {
-		// const typeName = mapPizzaType[PizzaType];
-		// details.push(`${typeName} ${PizzaSize} см`);
-		details.push(`${PizzaType} ${PizzaSize} см`);
+		const typeName = mapPizzaTypes[PizzaType];
+		details.push(`${typeName} ${PizzaSize} см`);
 	}
 
 	if (ingredients) {
-		ingredients.forEach((ingredient) => {
-			details.push(ingredient);
-		});
+		details.push(...ingredients
+			.map((ingredient) => ingredient.name));
 	}
 
 	return details.join(', ');

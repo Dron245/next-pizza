@@ -1,65 +1,52 @@
 'use client';
 import { cn } from '@/lib/utils';
-import React, { useState } from 'react';
-import * as CartItemDetails from './cart-item-details';
+import React from 'react';
+import * as CartItem from './cart-item-details';
 import { CartItemCountBlock } from './cart-item-count-block';
-interface Props {
-	src: string;
-	disabled?: boolean;
-	title: string;
-	price: Number;
-	description: string;
+import { Trash2Icon } from 'lucide-react';
+import { CartItemProps } from './cart-item-details/cart-item-details.types';
+interface Props extends CartItemProps {
+	onClickCountButton?: (type: 'plus' | 'minus') => void;
 	className?: string;
 }
 
 export const CartDrawerItem: React.FC<Props> = ({
-	className,
-	src,
-	title,
-	description,
+	imageUrl,
+	name,
 	price,
+	quantity,
+	details,
 	disabled,
+	onClickCountButton,
+	className,
 }) => {
-	// function setQuantity(value:number, znak: 'plus' | 'minus') {
-	// 	if (znak ==='minus' && value > 1) {
-	// 		--value
-	// 	} else {
-	// 		console.log(123);
-
-	// 		value++
-	// 	}
-	// }
-	const [quantity, setQuantity] = useState<number>(1);
-
-	// ✅ Функция для изменения количества
-	function updateQuantity(znak: 'plus' | 'minus') {
-		console.log(123);
-		
-		setQuantity((prev) => (znak === 'plus' ? prev + 1 : Math.max(1, prev - 1)));
-	}
 	return (
 		<div
 			className={cn(
 				'flex bg-white p-5 gap-6',
-				{
-					'opacity-50 pointer-events-none': disabled,
-				},
+				{ 'opacity-50 pointer-events-none': disabled },
 				className
 			)}
 		>
-			<CartItemDetails.Image src={src} />
+			<CartItem.Image src={imageUrl} />
 
 			<div className='flex-1'>
-				<h3 className='text-lg font-semibold'>{title}</h3>
-				<p className='text-gray-600 text-sm'>{description}</p>
-
-				<div className='flex justify-between items-center gap-2'>
+				<CartItem.Info name={name} details={details} />
+				<hr className='my-3' />
+				<div className='flex items-center justify-between'>
 					<CartItemCountBlock
-						setQuantity={updateQuantity}
+						onClick={onClickCountButton}
 						className='flex items-center gap-2'
 						value={quantity}
 					/>
-					<CartItemDetails.Price value={price} />
+					<div className='flex items-center gap-3'>
+						<CartItem.Price value={price} />
+						<Trash2Icon
+							// onClick={onClickRemove}
+							className='text-gray-400 cursor-pointer hover:text-gray-600'
+							size={16}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

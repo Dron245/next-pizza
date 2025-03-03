@@ -1,28 +1,34 @@
-'use client';
+import { cn } from '@/lib/utils';
 import React from 'react';
 import { CartItemCountIcon } from '.';
 
-interface Props {
+export interface CountButtonProps {
 	value: number;
-	setQuantity: ( znak: 'plus' | 'minus') => void;
+	size?: 'sm' | 'lg';
+	onClick?: (type: 'plus' | 'minus') => void;
 	className?: string;
 }
 
-export const CartItemCountBlock: React.FC<Props> = ({ setQuantity, value, className }) => {
+export const CartItemCountBlock: React.FC<CountButtonProps> = ({
+	onClick,
+	value = 1,
+	size = 'sm',
+	className,
+}) => {
 	return (
-		<div className={className}>
+		<div
+			className={cn(
+				'inline-flex items-center justify-between gap-3',
+				className
+			)}
+		>
 			<CartItemCountIcon
-				onClick={() => setQuantity( 'minus')}
+				onClick={() => onClick?.('minus')}
 				disabled={value === 1}
-				className='w-5 h-5 minus cursor-pointer'
 				type={'minus'}
 			/>
-			<p>{value}</p>
-			<CartItemCountIcon
-				onClick={() => setQuantity( 'plus')}
-				className='w-5 h-5 plus cursor-pointer'
-				type={'plus'}
-			/>
+			<b className={size === 'sm' ? 'text-sm' : 'text-md'}>{value}</b>
+			<CartItemCountIcon onClick={() => onClick?.('plus')} type={'plus'} />
 		</div>
 	);
 };
