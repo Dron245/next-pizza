@@ -8,7 +8,7 @@ import { Cart, Ingredient } from '@prisma/client';
 export const getCartItemDetails = (
 	PizzaType: PizzaType,
 	PizzaSize: PizzaSize,
-	ingredients: Array<{ name: string; price: number }>,
+	ingredients: Array<{ name: string }>,
 ): string => {
 	const details = [];
 

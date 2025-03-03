@@ -34,17 +34,12 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 
 					<div className='-mx-6 mt-5 overflow-auto flex-1'>
 						<CartDrawerItem
+							id={0}
 							imageUrl='https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
 							name={'Диабло'}
 							price={300}
-							details={getCartItemDetails(1, 20, [
-								{
-									name: 'Пепперони',
-									price: 0,
-								},
-							])}
+							details={getCartItemDetails(2, 30, [{name: 'Пепперони'}, {name: 'Оньион'}, {name: 'Колбаса'}])}
 							quantity={1}
-							id={0}
 						/>
 					</div>
 
