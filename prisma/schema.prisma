@@ -99,16 +99,15 @@ model Cart {
 model CartItem {
    id Int @id @default(autoincrement())
 
+   cart   Cart @relation(fields: [cartId], references: [id])
+   cartId Int
+
    productItemId Int
    productItem   ProductItem @relation(fields: [productItemId], references: [id])
 
-   cartId Int
-   cart   Cart @relation(fields: [cartId], references: [id])
-
-   ingredients Ingredient[]
    quantity    Int
-   pizzaSize   Int?
-   type        Int?
+	
+   ingredients Ingredient[]
 
    createdAt DateTime @default(now())
    updatedAt DateTime @updatedAt

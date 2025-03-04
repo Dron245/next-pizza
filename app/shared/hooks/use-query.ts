@@ -8,7 +8,7 @@ export const useQuery = (filters: Filters) => {
 	useEffect(() => {
 		const params = {
 			pizzaTypes: Array.from(filters.pizzaTypes),
-			size: Array.from(filters.sizes),
+			sizes: Array.from(filters.sizes),
 			...filters.prices,
 			ingredients: Array.from(filters.selectedIngredients),
 		};

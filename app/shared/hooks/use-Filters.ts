@@ -34,14 +34,16 @@ export function useFilters():ReturnProps {
 		priceTo:  Number(searchParams.get("priceTo")) || undefined,
 	});
 
-	const [sizes, { toggle: toggleSize }] = useSet(
-		new Set<string>(searchParams.has("sizes") ? searchParams.get("sizes")?.split(",") : [])
-	);
 	const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
 		new Set<string>(
 			searchParams.has("pizzaTypes") ? searchParams.get("pizzaTypes")?.split(",") : []
 		)
 	);
+
+	const [sizes, { toggle: toggleSize }] = useSet(
+		new Set<string>(searchParams.has("sizes") ? searchParams.get("sizes")?.split(",") : [])
+	);
+	
 	const [selectedIngredients, { toggle: toggleIngredients }] = useSet(
 		new Set<string>(
 			searchParams.has("ingredients") ? searchParams.get("ingredients")?.split(",") : []
