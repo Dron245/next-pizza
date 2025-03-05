@@ -392,7 +392,7 @@ async function up() {
 			quantity: 4,
 			// pizzaSize: 30,
 			ingredients: {
-				connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+				connect: [{ id: 5 }, { id: 6 }],
 			},
 		},
 	});

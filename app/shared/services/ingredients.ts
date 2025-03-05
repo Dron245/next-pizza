@@ -5,4 +5,3 @@ export async function getIngredients(): Promise<Ingredient[]> {
 	const res = await instance.get<Ingredient[]>(ApiSearch.INGREDIENTS);
 	return res.data;
 }
-
