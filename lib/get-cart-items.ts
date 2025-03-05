@@ -1,7 +1,7 @@
-export const getCartItems = (qwe:100) => {
+export const getCartItems = (data: { totalAmount: any; items: any }) => {
 
 	return {
-		totalAmount:qwe,
-		items: [],
+		totalAmount: data.totalAmount,
+		items: data.items
 	}
 }

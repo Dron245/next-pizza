@@ -1,10 +1,11 @@
 'use client';
 import { cn } from '@/lib/utils';
-import React from 'react';
+import React, { use } from 'react';
 import * as CartItem from './cart-item-details';
 import { CartItemCountBlock } from './cart-item-count-block';
 import { Trash2Icon } from 'lucide-react';
 import { CartItemProps } from './cart-item-details/cart-item-details.types';
+import { useCart } from '../../hooks/use-cart';
 interface Props extends CartItemProps {
 	onClickCountButton?: (type: 'plus' | 'minus') => void;
 	className?: string;
@@ -20,6 +21,10 @@ export const CartDrawerItem: React.FC<Props> = ({
 	onClickCountButton,
 	className,
 }) => {
+
+	const {cartSore} = useCart();
+	console.log(cartSore.fetchCartItems);
+	
 	return (
 		<div
 			className={cn(
