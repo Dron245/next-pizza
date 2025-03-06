@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
 	} 
 
 	if (token) {
-		const cart = await prisma.cart.findMany({
+		const cart = await prisma.cart.findFirst({
 			where: {tokenId: token},
 			include: {
 				items: {

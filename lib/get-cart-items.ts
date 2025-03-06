@@ -1,4 +1,5 @@
 import { CartDTO } from "@/app/shared/services/dto/DTO"
+import { calcCartItemTotalPrice } from ".";
 
 export type GetCartItem = {
 	id: number;
@@ -12,18 +13,14 @@ export type GetCartItem = {
 	ingredients: { name: string; price: number }[];
 }
 export const getCartItems = (data: CartDTO): { items: GetCartItem[] } => {
-	// console.log(123);
-	// if (!Array.isArray(data.items)) {
-	// 	console.error("Ошибка: data.items не является массивом", data.items);
-	// 	return { items: [] };
-	// }
-	const items = data[0].items.map((item) => ({
+	console.log(data);
+	
+	const items = data.items.map((item) => ({
 		id: item.id,
 		quantity: item.quantity,
 		name: item.productItem.product.name,
 		imageUrl: item.productItem.product.imageUrl,
-		// price: calcCartItemTotalPrice(item),
-		price: 1000,
+		price: calcCartItemTotalPrice(item),
 		pizzaSize: item.productItem.size,
 		pizzaType: item.productItem.pizzaType,
 		disabled: false,
@@ -33,6 +30,5 @@ export const getCartItems = (data: CartDTO): { items: GetCartItem[] } => {
 		})),
 	}))
 	
-	console.log(456);
 	return {items} ;
 }
