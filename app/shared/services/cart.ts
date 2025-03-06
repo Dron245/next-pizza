@@ -1,9 +1,9 @@
-// import { Ingredient } from '@prisma/client';
+import { CartDTO } from './dto/DTO';
 import instance from './instance';
 
 
-export async function getCart(): Promise<any> {
-	const res = await instance.get<any>('/cart');
+export async function getCart(): Promise<CartDTO> {
+	const res = await instance.get<CartDTO>('/cart');
 	return res.data;
 }
 

@@ -1,13 +1,12 @@
-import { CartItem } from "@prisma/client";
 import { create } from "zustand";
 import { Api } from "../services/api-client";
-import { getCartItems } from "@/lib/get-cart-items";
+import { GetCartItem, getCartItems } from "@/lib/get-cart-items";
 
 interface CartState {
 	loading: boolean;
 	error: boolean;
 	totalAmount: number;
-	items: CartItem[];
+	items: GetCartItem[];
 	fetchCartItems: () => Promise<void>;
 	updadeCartItems: () => Promise<void>;
 	removeCartItem: (id: number) => Promise<void>;
@@ -23,43 +22,20 @@ export const useCartStore = create<CartState>()((set) => ({
 		try {
 			set({ loading: true });
 			const data = await Api.cart.getCart();
-			console.log(data);
 			set(getCartItems(data));
 			set({ loading: false });
+			
 		} catch (error) {
-			set({ error: true });
+			set({ error: true, loading: false });
 		}
 	},
 	updadeCartItems: async () => {
-		// try {
-		// 	set({ loading: true });
-		// 	const data = await Api.cart.getCart();
-		// 	set(getCartItems(data));
-		// 	set({loading: false});
-		// } catch (error) {
-		// 	set({ error: true });
-		// }
+		
 	},
 	removeCartItem: async (id: number) => {
-		// try {
-		// 	await Api.cart.removeCartItem(id);
-		// 	set({ loading: true });
-		// 	const data = await Api.cart.getCart();
-		// 	set(getCartItems(data));
-		// 	set({loading: false});
-		// } catch (error) {
-		// 	set({ error: true });
-		// }
+		
 	},
 	deleteCartItem: async (id: number) => {
-		// try {
-		// 	await Api.cart.deleteCartItem(id);
-		// 	set({ loading: true });
-		// 	const data = await Api.cart.getCart();
-		// 	set(getCartItems(data));
-		// 	set({loading: false});
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		
 	},
 }));

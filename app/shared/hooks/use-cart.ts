@@ -1,15 +1,17 @@
+'use client';
 import { useEffect } from "react";
 import { useCartStore } from "../store/cart";
 
 export const useCart = () => {
-
-	const cartSore = useCartStore((state) => state);
+	const cartStore = useCartStore((state) => state);
+	const items = cartStore.items;
 	useEffect(() => {
-		cartSore.fetchCartItems();
-		
-	}, []);
+		cartStore.fetchCartItems();
 
+	}, []);
+	
 	return {
-		cartSore
+		items,
 	};
 };
+

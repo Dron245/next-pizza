@@ -1,8 +1,8 @@
+'use client';
 import React from 'react';
 import {
 	Sheet,
 	SheetContent,
-	SheetDescription,
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
@@ -14,6 +14,9 @@ import { CartDrawerItem } from '.';
 import { getCartItemDetails } from '@/lib/get-cart-item-details';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useCart } from '../../hooks/use-cart';
+import { PizzaSize, PizzaType } from '../../constants/pizza';
+
 interface Props {
 	className?: string;
 }
@@ -21,6 +24,8 @@ interface Props {
 export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 	children,
 }) => {
+	const { items } = useCart();
+
 	return (
 		<Sheet>
 			<SheetTrigger asChild>{children}</SheetTrigger>
@@ -28,19 +33,27 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 				<div className={cn('flex flex-col h-full')}>
 					<SheetHeader>
 						<SheetTitle>
-							В корзине <span className='font-bold'>3 товара </span>
+							В корзине{' '}
+							<span className='font-bold'>{items.length} товара </span>
 						</SheetTitle>
 					</SheetHeader>
 
 					<div className='-mx-6 mt-5 overflow-auto flex-1'>
-						<CartDrawerItem
-							id={0}
-							imageUrl='https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'
-							name={'Диабло'}
-							price={300}
-							details={getCartItemDetails(2, 30, [{name: 'Пепперони'}, {name: 'Оньион'}, {name: 'Колбаса'}])}
-							quantity={1}
-						/>
+						{items.map((item) => (
+							<CartDrawerItem
+								id={item.id}
+								key={item.id}
+								imageUrl={item.imageUrl}
+								name={item.name}
+								price={item.price}
+								details={getCartItemDetails(
+									item.pizzaType as PizzaType,
+									item.pizzaSize as PizzaSize,
+									item.ingredients
+							)}
+								quantity={item.quantity}
+							/>
+						))}
 					</div>
 
 					<SheetFooter className='-mx-6 bg-white p-8'>
