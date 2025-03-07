@@ -29,7 +29,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 	return (
 		<Sheet>
 			<SheetTrigger asChild>{children}</SheetTrigger>
-			<SheetContent className='flex flex-col justify-between pb-0 bg-[#F4F1EE]'>
+			<SheetContent
+				aria-describedby={undefined}
+				className='flex flex-col justify-between pb-0 bg-[#F4F1EE]'
+			>
 				<div className={cn('flex flex-col h-full')}>
 					<SheetHeader>
 						<SheetTitle>
@@ -40,7 +43,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 
 					<div className='-mx-6 mt-5 overflow-auto flex-1'>
 						{items.map((item) => (
-							<CartDrawerItem
+							<div className="mb-2" key={item.id}>
+								<CartDrawerItem
 								id={item.id}
 								key={item.id}
 								imageUrl={item.imageUrl}
@@ -50,9 +54,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
 									item.pizzaType as PizzaType,
 									item.pizzaSize as PizzaSize,
 									item.ingredients
-							)}
+								)}
 								quantity={item.quantity}
 							/>
+							</div>
 						))}
 					</div>
 

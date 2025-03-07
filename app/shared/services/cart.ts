@@ -1,13 +1,12 @@
 import { CartDTO } from './dto/DTO';
-import instance from './instance';
-
+import axiosInstance from './instance';
 
 export async function getCart(): Promise<CartDTO> {
-	const res = await instance.get<CartDTO>('/cart');
+	const res = await axiosInstance.get<CartDTO>('/cart');
 	return res.data;
 }
 
 // export async function removeCartItem(id: number): Promise<any> {
-// 	const res = await instance.delete<any>(`/cart/${id}`);
+// 	const res = await axiosInstance.delete<any>(`/cart/${id}`);
 // 	return res.data;
 // }

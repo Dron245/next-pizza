@@ -3,7 +3,6 @@ import {
 	PizzaType,
 	mapPizzaTypes,
 } from '@/app/shared/constants/pizza';
-import { Cart, Ingredient } from '@prisma/client';
 
 export const getCartItemDetails = (
 	PizzaType: PizzaType,

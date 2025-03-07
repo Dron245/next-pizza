@@ -1,19 +1,23 @@
-import { CartDTO } from "@/app/shared/services/dto/DTO"
-import { calcCartItemTotalPrice } from ".";
+import { CartDTO } from '@/app/shared/services/dto/DTO';
+import { calcCartItemTotalPrice } from '.';
 
-export type GetCartItem = {
+export type TransformCartItem = {
 	id: number;
 	quantity: number;
 	name: string;
 	imageUrl: string;
 	price: number;
-	pizzaSize: number|null;
-	pizzaType: number|null;
-	disabled: boolean;
-	ingredients: { name: string; price: number }[];
+	disabled?: boolean;
+	pizzaSize: number | null;
+	pizzaType: number | null;
+	ingredients: Array<{ name: string; price: number }>;
+};
+
+interface ReturnProps {
+	items: TransformCartItem[],
+	totalAmount: number
 }
-export const getCartItems = (data: CartDTO): { items: GetCartItem[] } => {
-	console.log(data);
+export const getCartItems = (data: CartDTO): ReturnProps => {
 	
 	const items = data.items.map((item) => ({
 		id: item.id,
@@ -28,7 +32,10 @@ export const getCartItems = (data: CartDTO): { items: GetCartItem[] } => {
 			name: ingredient.name,
 			price: ingredient.price,
 		})),
-	}))
-	
-	return {items} ;
-}
+	}));
+
+	return {
+		items,
+		totalAmount: data.totalAmount,
+		};
+};
